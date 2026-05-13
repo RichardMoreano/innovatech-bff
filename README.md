@@ -7,7 +7,19 @@ Microservicio encargado de orquestar las peticiones entre el Frontend y los micr
 - Adaptación de respuestas para el Frontend
 - Centralización de autenticación JWT
 
-## Endpoints
+## Endpoints    
+
+### Autenticación
+
+| Método | Endpoint        | Descripción |
+|--------|----------------|------------|
+| POST   | `/auth/login`  | Generar token JWT con usuario de prueba (admin / 123456) |
+
+Ejemplo de request:
+{
+  "username": "admin",
+  "password": "123456"
+}
 
 | Método | Endpoint                          | Descripción |
 |--------|-----------------------------------|-----------|
