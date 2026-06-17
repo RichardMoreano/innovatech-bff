@@ -14,18 +14,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Deshabilitar CSRF ya que usamos JWT y la app es stateless
             .csrf(csrf -> csrf.disable())
-            
-            // Configurar la gestión de sesiones como Stateless
+            .cors(cors -> cors.disable()) // El CORS ya lo maneja el Gateway
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            
-            // Autorizar peticiones
             .authorizeHttpRequests(auth -> auth
-                // Permite que el Gateway consuma los endpoints de la API v2 del BFF
+                // El BFF confía en el Gateway perimetral
                 .requestMatchers("/api/v2/bff/**").permitAll()
-                // Cualquier otra ruta requiere autenticación por defecto
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             );
 
         return http.build();
