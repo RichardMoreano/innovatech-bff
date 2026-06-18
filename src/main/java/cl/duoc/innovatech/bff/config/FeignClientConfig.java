@@ -17,10 +17,20 @@ public class FeignClientConfig {
             if (attributes != null) {
                 HttpServletRequest request = attributes.getRequest();
                 String authorizationHeader = request.getHeader("Authorization");
-                
-                // Si el BFF recibió un token, se lo reenvía a ms-gestion-proyectos
+                String userId = request.getHeader("X-User-Id");
+                String userRoles = request.getHeader("X-User-Roles");
+
+                // Reenviar token si existe
                 if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                     requestTemplate.header("Authorization", authorizationHeader);
+                }
+
+                // Reenviar cabeceras de identidad
+                if (userId != null) {
+                    requestTemplate.header("X-User-Id", userId);
+                }
+                if (userRoles != null) {
+                    requestTemplate.header("X-User-Roles", userRoles);
                 }
             }
         };
