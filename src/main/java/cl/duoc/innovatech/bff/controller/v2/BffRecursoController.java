@@ -37,4 +37,10 @@ public class BffRecursoController {
         recursoClient.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}/disponibilidad")
+    public ResponseEntity<Void> actualizarDisponibilidad(@PathVariable Long id, @RequestParam String disponibilidad) {
+        recursoClient.actualizarDisponibilidad(id, disponibilidad);
+        return ResponseEntity.ok().build();
+    }
 }
