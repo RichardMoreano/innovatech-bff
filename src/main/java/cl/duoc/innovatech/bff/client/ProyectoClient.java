@@ -4,10 +4,13 @@ import cl.duoc.innovatech.bff.dto.ProyectoRequestDTO;
 import cl.duoc.innovatech.bff.dto.ProyectoResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@FeignClient(name = "ms-gestion-proyectos", url = "http://ms-gestion-proyectos:8081/api/v2/proyectos")
+@FeignClient(
+    name = "servicio-proyecto", 
+    url = "${PROYECTOS_URL:http://ms-gestion-proyectos:8081}/api/v2/proyectos", 
+    configuration = cl.duoc.innovatech.bff.config.FeignClientConfig.class
+)
 public interface ProyectoClient {
 
     @GetMapping
@@ -24,4 +27,16 @@ public interface ProyectoClient {
 
     @DeleteMapping("/{id}")
     void eliminar(@PathVariable("id") Long id);
+
+    @GetMapping("/{id}/recursos-ids")
+    List<Long> obtenerRecursosIdsPorProyecto(@PathVariable("id") Long id);
+
+    @PutMapping("/{id}/estado-interno")
+    ProyectoResponseDTO actualizarEstado(@PathVariable("id") Long id, @RequestParam("estado") String estado);
+
+    @PostMapping("/{id}/vincular")
+    void vincularRecurso(@PathVariable("id") Long id, @RequestParam("recursoId") Long recursoId);
+
+    @DeleteMapping("/{id}/desvincular")
+    void desvincularRecurso(@PathVariable("id") Long id, @RequestParam("recursoId") Long recursoId);
 }
