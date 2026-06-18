@@ -7,7 +7,11 @@ import cl.duoc.innovatech.bff.dto.MetricaResumenResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "ms-monitoreo-analitica", url = "http://ms-monitoreo-analitica:8084", configuration = FeignClientConfig.class)
+@FeignClient(
+    name = "ms-monitoreo-analitica", 
+    url = "${MONITOREO_URL:http://ms-monitoreo-analitica:8084}", 
+    configuration = FeignClientConfig.class
+)
 public interface MonitoreoClient {
 
     @PostMapping("/api/v2/monitoreo/eventos")
