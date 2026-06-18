@@ -21,7 +21,7 @@ public record RecursoRequestDTO(
     String rol,
     
     @NotNull(message = "La disponibilidad es obligatoria.")
-    Boolean disponibilidad,
+    String disponibilidad,
     
     @NotNull(message = "Las horas semanales son obligatorias.")
     @Min(value = 1, message = "Las horas semanales deben ser al menos 1.")

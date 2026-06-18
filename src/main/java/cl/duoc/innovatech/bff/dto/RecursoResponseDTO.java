@@ -6,6 +6,6 @@ public record RecursoResponseDTO(
     String apellido,
     String email,
     String rol,
-    Boolean disponibilidad,
+    String disponibilidad,
     Integer horasSemana
 ) {}
